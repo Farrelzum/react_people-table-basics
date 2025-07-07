@@ -1,6 +1,5 @@
 import './App.scss';
-import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
-import classNames from 'classnames';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { HomePage } from './components/HomePage/HomePage';
 import { PeoplePage } from './components/PeoplePage/PeoplePage';
 import { NotFoundPage } from './components/NotFoundPage/NotFoundPage';
@@ -8,6 +7,7 @@ import { PeopleTable } from './components/PeopleTable/PeopleTable';
 import { useEffect, useState } from 'react';
 import { getPeople } from './api';
 import { Person } from './types';
+import { Navbar } from './components/Navbar/Navbar';
 
 export const App = () => {
   const [people, setPeople] = useState<Person[] | null>(null);
@@ -37,28 +37,7 @@ export const App = () => {
         aria-label="main navigation"
       >
         <div className="container">
-          <div className="navbar-brand">
-            <NavLink
-              to={'/'}
-              className={({ isActive }) =>
-                classNames('navbar-item', {
-                  'has-background-grey-lighter': isActive,
-                })
-              }
-            >
-              Home
-            </NavLink>
-            <NavLink
-              to={'/people'}
-              className={({ isActive }) =>
-                classNames('navbar-item', {
-                  'has-background-grey-lighter': isActive,
-                })
-              }
-            >
-              People
-            </NavLink>
-          </div>
+          <Navbar />
         </div>
       </nav>
 
@@ -79,7 +58,7 @@ export const App = () => {
             >
               <Route index element={<PeopleTable people={people} />}></Route>
               <Route
-                path="/people/:slug"
+                path=":slug"
                 element={<PeopleTable people={people} />}
               ></Route>
             </Route>

@@ -14,8 +14,14 @@ export const PeopleTable: React.FC<Props> = ({ people }) => {
       return;
     }
 
+    const normalizedParentName = name.toLowerCase().replaceAll(' ', '-');
+
     const parent = people?.find(person => {
-      return person.slug.includes(name.toLowerCase().replaceAll(' ', '-'));
+      const normalizedPersonName = person.name
+        .toLowerCase()
+        .replaceAll(' ', '-');
+
+      return normalizedPersonName === normalizedParentName;
     });
 
     return parent;
